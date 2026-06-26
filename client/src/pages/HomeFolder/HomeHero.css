@@ -1,0 +1,109 @@
+#home {
+  height: auto;
+}
+
+.top-banner {
+  background: url(../../Images/Banner/hero-banner.png);
+  background-size: cover;
+  /* background-attachment: fixed; */
+  /* background-color: #050729; */
+  /* background-color: red; */
+  width: 100%;
+  padding: 15rem 0 13rem;
+  /* height: 95vh; */
+  margin-bottom: 0rem;
+}
+/* opacity: 50%; */
+
+#home h1 {
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-shadow: 2px 1px 2px #b27b26;
+}
+#home h2 {
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
+  color: #b27b26;
+}
+
+.main-btn {
+  color: white;
+  background-color: #040850;
+  /* border: 0.5px solid #cc941c; */
+  border-radius: 8px;
+  padding: 0.5rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+.main-btn:hover {
+  /* background-color: #0E185F; */
+  color: white;
+  border: 1px solid #cc941c;
+}
+.fill-btn {
+  color: white;
+  border: 1px solid #cc941c;
+  border-radius: 6px;
+  padding: 0.5rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.fill-btn:hover {
+  background-color: #020542;
+  color: white;
+  border: 0.7px solid #cc941c;
+}
+.logo-img {
+  padding: 0 0;
+  width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+  #home h1 {
+    font-weight: 800;
+    font-size: 1.85rem;
+  }
+  #home h2 {
+    font-size: 1.4rem;
+    letter-spacing: 0;
+    line-height: 1.6rem;
+  }
+  .main-btn,
+  .fill-btn {
+    padding: 0.3rem 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .top-banner {
+    padding: 5rem 6rem;
+  }
+  #home h1 {
+    font-weight: 800;
+    font-size: 1.9rem;
+    display: none;
+    /* padding-top: 2rem; */
+  }
+  #home h4 {
+    line-height: 1rem;
+  }
+  #home h2 {
+    font-size: 1.9rem;
+    /* letter-spacing: 1px; */
+    line-height: 1.9rem;
+  }
+  .main-btn,
+  .fill-btn {
+    padding: 0.3rem 1rem;
+  }
+
+  #home .row .col-md-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}

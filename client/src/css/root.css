@@ -1,0 +1,99 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;500;600;700&family=Roboto+Slab:wght@300;400;500;600;700;800;900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,900&family=Righteous&display=swap");
+
+html,body {
+  overflow-x: hidden;
+}
+header a:hover {
+  text-decoration: none;
+  color: var(--primary-color) !important;
+  /* background-color: aqua; */
+}
+
+:root {
+
+  --primary-color: #20013F; /*#10112e;*/
+  /*--primary-bg: linear-gradient(to top, #09203f 0%, #10112e 100%);*/
+  --primary-bg: #20013F;
+  --secondary-color: #d18427;
+  --thired-color: #f98169;
+  --white-color: #fff;
+  --text-color: #555;
+  --text-gray: #999;
+  --black-color: #000;
+  --primary-font: "Montserrat", serif;
+  --secondary-font: "Josefin Sans", sans-serif;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+  margin-bottom: 3rem;
+  color: var(--white-color);
+}
+
+h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  /* margin-bottom: 3rem; */
+  text-transform: capitalize; /* this will capitalize first letter */
+  color: var(--secondary-color);
+  line-height: 3rem;
+  margin: 1rem 0;
+  font-family: var(--secondry-font);
+}
+h4 {
+  font-size: 1.125rem; /* 1 rem = 16 px */
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize; /* this will capitalize first letter */
+  color: var(--secondary-color);
+  line-height: 2.4rem;
+  font-family: var(--secondry-font);
+}
+/* h5 {
+    color: var(--primary-color);
+    text-transform: capitalize;
+    font-family: var(--secondry-font);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  } */
+
+p {
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: 1px;
+}
+.centered-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.one-rem-padding {
+  padding: 1rem auto;
+}
+.two-rem-padding {
+  padding: 2rem auto;
+}
+.one-rem-margin {
+  margin: 1rem auto;
+}
+.two-rem-margin {
+  margin: 2rem auto;
+}
+
+::-webkit-scrollbar {
+  width: 0.375rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #cc941c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+}

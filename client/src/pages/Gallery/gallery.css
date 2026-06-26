@@ -1,0 +1,92 @@
+body {
+  background-color: var(--primary-color);
+}
+
+.gallery-container {
+  padding-top: 5rem;
+}
+
+#gallery img {
+  border-radius: 5px;
+  border: 1px solid grey;
+  box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+    rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+  transition: all 0.2s ease;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+#gallery img:hover {
+  transform: translateY(-5px);
+}
+.gallery-btns {
+  /* margin-top: 1.5rem; */
+  position: fixed;
+  bottom: 2rem;
+}
+
+.gallery-btns button {
+  color: white;
+  border: 2px solid rgb(187, 183, 183);
+  background-color: #d1852781;
+  outline: none;
+  padding: 0.5rem 1rem;
+  margin: 0 4px;
+}
+
+.gallery-btns button:hover {
+  /* border: 2px solid red; */
+  color: #ec870c;
+  background-color: #10112e9f;
+  box-shadow: none;
+  outline: none;
+}
+
+.gallery-full-img {
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.573);
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 1100;
+  /* opacity: 90%; */
+  backdrop-filter: blur(5px);
+}
+
+.cross-btn {
+  position: fixed;
+  top: 10%;
+  right: 4%;
+  color: white;
+  border: 2px solid rgb(216, 105, 105);
+  background-color: #d1852756;
+  outline: none;
+}
+
+.cross-btn:hover,
+.cross-btn:focus {
+  background-color: rgba(255, 0, 0, 0.564);
+  color: white;
+}
+
+@media only screen and (max-width: 768px) {
+  .cross-btn {
+    top: 25%;
+  }
+}
+
+.gallery-item {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

@@ -1,0 +1,85 @@
+#contactus {
+  /* background-color: var(--primary-color); */
+  background: var(--primary-bg);
+  /* height: 100vh; */
+  padding: 5rem 2rem;
+  padding-bottom: 0;
+  /* height: 100vh; */
+  /* position: absolute; */
+}
+
+/* #contactus .title {
+    background-image: url(../../Images/team/ajay\ kumar\ 1.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 60vh;
+    min-width: 100%;
+    filter: saturate(00%);
+    filter: contrast(100%);
+    filter: grayscale(100%);
+    padding-top: 3rem;
+    margin-bottom: 5rem;
+  } */
+
+  #contactus .title h1 {
+    color: white;
+    font-size: 4rem;
+  }
+
+  #contactus h3 {
+    color: white;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin: 0;
+  }
+
+  #contactus h4 {
+    /* color: white; */
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+
+  #contactus h5 {
+    color: rgb(207, 202, 202);
+  }
+
+  #contactus .headbox{
+    margin: 2rem 0;
+   
+  }
+
+  #contactus .wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 35vh;
+  }
+  #contactus .subtitle{
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgb(104, 102, 102);
+  }
+  #contactus .subtitle h3{
+    font-weight: 500;
+  }
+
+
+@media only screen and (max-width: 576px){
+  
+  #contactus .title h1 {
+    color: white;
+    font-size: 3.5rem;
+  }
+
+  #contactus h3 {
+    color: white;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+}
+
+  
+
+  

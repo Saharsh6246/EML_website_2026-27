@@ -1,0 +1,358 @@
+#admin {
+  padding-top: 4rem;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.admin-wrapper {
+  display: flex;
+  min-height: calc(100vh - 4rem);
+}
+
+.admin-sidebar {
+  width: 250px;
+  background-color: #2c3e50;
+  padding: 2rem 1rem;
+  color: white;
+}
+
+.admin-sidebar h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.nav-btn {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background: none;
+  border: none;
+  color: white;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.nav-btn:hover {
+  background-color: #34495e;
+}
+
+.nav-btn.active {
+  background-color: #3498db;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: white;
+}
+
+.manager-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f8f9fa;
+}
+
+.action-btn {
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-btn {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+/* Add these to your existing CSS file */
+
+.message {
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.form-container h3 {
+  margin-bottom: 1.5rem;
+  color: #2c3e50;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.data-table img {
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.submit-btn {
+  background-color: #3498db;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Gallery Manager Styles */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+}
+
+.gallery-item-admin {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  aspect-ratio: 1;
+}
+
+.gallery-item-admin img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.gallery-item-admin:hover .gallery-item-overlay {
+  transform: translateY(0);
+}
+
+.gallery-item-admin:hover img {
+  transform: scale(1.05);
+}
+
+.gallery-item-title {
+  color: white;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.file-input {
+  padding: 0.5rem 0;
+}
+
+.file-input::file-selector-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: #f8f9fa;
+  cursor: pointer;
+  margin-right: 1rem;
+}
+
+.file-input::file-selector-button:hover {
+  background: #e9ecef;
+}
+
+.loading {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+.login-container {
+  max-width: 400px;
+  max-height: 400px;
+  margin: 100px auto;
+  padding: 5rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.login-container h2 {
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Style the Google Login button container */
+.login-container > div {
+  margin: 0 auto;
+  width: fit-content;
+}
+
+.email-manager {
+  padding: 20px;
+}
+
+.add-email-form {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.add-email-form input {
+  padding: 8px;
+  flex: 1;
+}
+
+.email-list {
+  margin-top: 20px;
+}
+
+.email-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.success-message {
+  color: green;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #e8f5e9;
+  border-radius: 4px;
+}
