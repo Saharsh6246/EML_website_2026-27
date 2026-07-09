@@ -1,32 +1,49 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function AdminForm() {
-  const [speakerName, setSpeakerName] = useState("");
-  const [speakerDesc, setSpeakerDesc] = useState("");
-  const [lecTitle, setLecTitle] = useState("");
-  const [speakerPhoto, setSpeakerPhoto] = useState("");
-  const [ytLink, setYtLink] = useState("");
+export default function AdminForm({ speaker, onSubmitSuccess }) {
+  const [speakerName, setSpeakerName] = useState(speaker?.name || "");
+  const [speakerDesc, setSpeakerDesc] = useState(speaker?.description || "");
+  const [lecTitle, setLecTitle] = useState(speaker?.lecture_title || "");
+  const [speakerPhoto, setSpeakerPhoto] = useState(speaker?.image || "");
+  const [ytLink, setYtLink] = useState(speaker?.yt_link || "");
+  const [type, setType] = useState(speaker?.type || "upcoming");
+  const [priorityNumber, setPriorityNumber] = useState(speaker?.priority_number || 0);
 
   const submit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/speakers", {
+      const payload = {
         name: speakerName,
         lecture_title: lecTitle,
         description: speakerDesc,
         image: speakerPhoto,
         yt_link: ytLink,
-      });
-      alert(`${speakerName} added to speaker database`);
+        type,
+        priority_number: parseInt(priorityNumber)
+      };
+
+      if (speaker) {
+        await axios.put(`http://localhost:8000/api/speakers/${speaker._id}`, payload);
+        alert(`${speakerName} updated successfully`);
+      } else {
+        await axios.post("http://localhost:8000/api/speakers", payload);
+        alert(`${speakerName} added to speaker database`);
+      }
+      
       setSpeakerName("");
       setSpeakerDesc("");
       setLecTitle("");
       setSpeakerPhoto("");
       setYtLink("");
+      setType("upcoming");
+      setPriorityNumber(0);
+      
+      if (onSubmitSuccess) {
+        onSubmitSuccess();
+      }
     } catch (e) {
-      // console.log(speakerName, speakerDesc, lecTitle,speakerPhoto, ytLink);
-      alert("Error in adding speaker");
+      alert("Error in saving speaker");
       console.log("Consoling error", e);
     }
   };
@@ -106,6 +123,34 @@ export default function AdminForm() {
             onChange={(e) => {
               setYtLink(e.target.value);
             }}
+          />
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="type" className="form-label">
+            Speaker Type
+          </label>
+          <select
+            className="form-control"
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+          >
+            <option value="upcoming">Upcoming Speaker</option>
+            <option value="past">Past Speaker</option>
+          </select>
+        </div>
+
+        <div className="mb-3">
+          <label htmlFor="prioritynumber" className="form-label">
+            Priority Number (for sorting past speakers)
+          </label>
+          <input
+            type="number"
+            value={priorityNumber}
+            className="form-control"
+            id="prioritynumber"
+            onChange={(e) => setPriorityNumber(e.target.value)}
           />
         </div>
 

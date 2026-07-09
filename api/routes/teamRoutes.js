@@ -4,9 +4,11 @@ import {
   getTeamByYear,
   updateTeammate,
   deleteTeammate,
+  getAllTeam,
 } from "../controllers/teamController.js";
 const router = express.Router();
 
+router.get("/", getAllTeam);
 router.get("/:year", getTeamByYear);
 router.post("/", addTeammate);
 router.put("/:id", updateTeammate);

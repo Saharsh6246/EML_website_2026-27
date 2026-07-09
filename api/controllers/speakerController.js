@@ -2,7 +2,7 @@ import asyncHandler from "express-async-handler";
 import Speaker from "../models/Speaker.js";
 
 export const getAllSpeakers = asyncHandler(async (req, res) => {
-  const speakers = await Speaker.find();
+  const speakers = await Speaker.find().sort({ priority_number: -1 });
   res.status(200).send(speakers);
 });
 

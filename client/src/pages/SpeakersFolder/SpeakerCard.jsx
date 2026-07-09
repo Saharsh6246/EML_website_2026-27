@@ -4,7 +4,6 @@ import stock_photo_2 from "../../Images/stockPhotos/img3.png";
 import stock_photo_3 from "../../Images/stockPhotos/img2.png";
 
 export default function SpeakerCard(props) {
-  const [showVideo, setShowVideo] = useState(false);
   const { name, lecture_title, description, image, yt_link } = props.data;
 
   const getRandomStockPhoto = () => {
@@ -13,13 +12,7 @@ export default function SpeakerCard(props) {
     return stockPhotos[randomIndex];
   };
 
-  const getYoutubeVideoId = (url) => {
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url?.match(regExp);
-    return match && match[2].length === 11 ? match[2] : null;
-  };
 
-  const videoId = getYoutubeVideoId(yt_link);
   const displayImage = image || getRandomStockPhoto();
 
   return (
@@ -27,17 +20,6 @@ export default function SpeakerCard(props) {
       <div className="speaker-card">
         <div className="card-content">
           <div className="speaker-image">
-            {showVideo && videoId ? (
-              <div className="video-container-in-image">
-                <iframe
-                  src={`https://www.youtube.com/embed/${videoId}`}
-                  title={lecture_title}
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            ) : (
               <img 
                 src={displayImage} 
                 alt={name || "Speaker"} 
@@ -46,7 +28,6 @@ export default function SpeakerCard(props) {
                   e.target.onerror = null;
                 }}
               />
-            )}
           </div>
           <div className="speaker-info">
             <h2>{name}</h2>
@@ -56,10 +37,10 @@ export default function SpeakerCard(props) {
             {yt_link && (
               <button
                 className="watch-btn"
-                onClick={() => setShowVideo(!showVideo)}
+                onClick={() => window.open(yt_link, "_blank")}
               >
                 <i className="fa-brands fa-youtube"></i>
-                {showVideo ? " Show Photo" : " Watch Video"}
+                 Watch Video
               </button>
             )}
           </div>

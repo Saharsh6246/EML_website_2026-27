@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function TeamManager() {
-  const [teammates, setTeammates] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     position: "",
@@ -11,6 +10,8 @@ export default function TeamManager() {
     vertical: "",
   });
   const [message, setMessage] = useState("");
+  const [allTeammates, setAllTeammates] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [editingId, setEditingId] = useState(null);
 
   useEffect(() => {
@@ -19,15 +20,15 @@ export default function TeamManager() {
 
   const fetchTeammates = async () => {
     try {
-      const response = await axios.get(
-        `http://localhost:8000/api/team/${new Date().getFullYear()}`
-      );
-      setTeammates(response.data);
+      const response = await axios.get("http://localhost:8000/api/team");
+      setAllTeammates(response.data);
     } catch (error) {
       setMessage("Error fetching team members");
       console.error("Error fetching team:", error);
     }
   };
+
+  const teammates = allTeammates.filter(t => t.year === selectedYear);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -183,6 +184,20 @@ export default function TeamManager() {
             </button>
           )}
         </form>
+      </div>
+
+      <div className="filter-container" style={{ margin: "20px 0" }}>
+        <label htmlFor="yearFilter">Filter by Year: </label>
+        <select
+          id="yearFilter"
+          value={selectedYear}
+          onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+          style={{ padding: "5px", marginLeft: "10px" }}
+        >
+          {[...new Set(allTeammates.map(t => t.year)), new Date().getFullYear()].sort((a,b)=>b-a).filter((v,i,a)=>a.indexOf(v)===i).map(year => (
+            <option key={year} value={year}>{year}</option>
+          ))}
+        </select>
       </div>
 
       <table className="data-table">

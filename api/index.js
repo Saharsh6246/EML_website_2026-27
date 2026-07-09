@@ -5,6 +5,7 @@ import teamRoutes from "./routes/teamRoutes.js";
 import speakerRoutes from "./routes/speakerRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import galleryRoutes from "./routes/galleryRoutes.js";
+import settingsRoutes from "./routes/settingsRoutes.js";
 
 import cors from "cors";
 const app = express();
@@ -18,6 +19,7 @@ app.use("/api/team", teamRoutes);
 app.use("/api/speakers", speakerRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/gallery", galleryRoutes);
+app.use("/api/settings", settingsRoutes);
 
 const connect = async () => {
   try {

@@ -8,6 +8,7 @@ export default function GalleryManager() {
   const [uploadLoading, setUploadLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [title, setTitle] = useState("");
+  const [year, setYear] = useState(new Date().getFullYear());
 
   // Fetch all images
   const fetchImages = async () => {
@@ -48,6 +49,7 @@ export default function GalleryManager() {
     const formData = new FormData();
     formData.append('image', selectedFile);
     formData.append('title', title);
+    formData.append('year', year);
 
     try {
       setUploadLoading(true);
@@ -101,6 +103,18 @@ export default function GalleryManager() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Enter image title"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="year">Year</label>
+            <input
+              type="number"
+              id="year"
+              value={year}
+              onChange={(e) => setYear(parseInt(e.target.value))}
+              placeholder="Enter year"
+              required
             />
           </div>
 

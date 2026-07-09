@@ -26,7 +26,6 @@ export default function TeammateCard({ data }) {
               setImageError(true);
             }}
             loading="lazy"
-            crossOrigin="anonymous"
           />
           {imageError && (
             <div className="image-error">Image not available</div>

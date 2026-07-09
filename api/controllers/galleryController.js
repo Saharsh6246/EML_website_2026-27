@@ -30,6 +30,7 @@ export const uploadImage = async (req, res) => {
       title: req.body.title || "Untitled",
       imageUrl: result.secure_url,
       cloudinaryId: result.public_id,
+      year: parseInt(req.body.year) || new Date().getFullYear(),
     });
 
     const savedImage = await newImage.save();
@@ -57,8 +58,14 @@ export const deleteImage = async (req, res) => {
       return res.status(404).json({ message: "Image not found" });
     }
 
-    // Delete from cloudinary
-    await cloudinary.uploader.destroy(image.cloudinaryId);
+    // Delete from cloudinary (might fail if using mock local data without API keys)
+    try {
+      if (image.cloudinaryId && !image.cloudinaryId.startsWith("local-")) {
+        await cloudinary.uploader.destroy(image.cloudinaryId);
+      }
+    } catch (err) {
+      console.warn("Failed to delete from Cloudinary:", err.message);
+    }
 
     // Delete from database
     await Gallery.findByIdAndDelete(req.params.id);

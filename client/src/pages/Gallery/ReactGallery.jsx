@@ -10,6 +10,7 @@ export default function ReactGallery() {
   const [colCount, setColCount] = useState(3);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedYear, setSelectedYear] = useState("All");
 
   // Fetch images from API
   const fetchImages = async () => {
@@ -131,12 +132,27 @@ export default function ReactGallery() {
             </div>
           )}
 
+          <div className="filter-container" style={{ textAlign: "center", marginBottom: "20px", paddingTop: "7rem" }}>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
+            >
+              <option value="All">All Years</option>
+              {[...new Set(images.map((img) => img.year))].filter(Boolean).sort((a, b) => b - a).map((year) => (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <Masonry 
             columnsCount={colCount} 
             gutter="12px" 
             className="container gallery-container"
           >
-            {images.map((image, i) => (
+            {images.filter(img => selectedYear === "All" || img.year === parseInt(selectedYear)).map((image, i) => (
               <div 
                 key={image._id} 
                 className="gallery-item"

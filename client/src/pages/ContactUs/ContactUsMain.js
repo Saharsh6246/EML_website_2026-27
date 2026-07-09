@@ -1,7 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import "./contactus.css"
 import Footer from '../../components/Footer/Footer'
+import TeammateCard from '../TeamFolder/TeammateCard'
+
 export default function ContactUsMain() {
+  const [teammates, setTeammates] = useState([]);
+
+  useEffect(() => {
+    const fetchTeammates = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/team/${new Date().getFullYear()}`
+        );
+        setTeammates(response.data);
+      } catch (error) {
+        console.error("Error fetching team:", error);
+      }
+    };
+    fetchTeammates();
+  }, []);
+
   return (
     <>
       <section id='contactus'>
@@ -37,11 +56,17 @@ export default function ContactUsMain() {
               <h5>head@eml-iitm.org</h5>
             </div>
           </div>
+          
+          <h2 className="text-center" style={{marginTop: "50px", marginBottom: "30px"}}>Our Team</h2>
+          <div className="row">
+            {teammates.map((teammate) => (
+              <TeammateCard data={teammate} key={teammate._id} />
+            ))}
+          </div>
+
         </div>
       <Footer />
       </section>
     </>
-
-
   )
 }

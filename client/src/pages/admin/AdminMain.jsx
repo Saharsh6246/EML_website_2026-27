@@ -8,6 +8,7 @@ import SpeakerManager from "./SpeakerManager";
 import TeamManager from "./TeamManager";
 import GalleryManager from "./GalleryManager";
 import EmailManager from "./EmailManager";
+import SettingsManager from "./SettingsManager";
 
 export default function AdminMain() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -73,6 +74,8 @@ export default function AdminMain() {
         return <GalleryManager />;
       case "emails":
         return <EmailManager />;
+      case "settings":
+        return <SettingsManager />;
       default:
         return <SpeakerManager />;
     }
@@ -117,6 +120,12 @@ export default function AdminMain() {
                   onClick={() => setActiveTab("emails")}
                 >
                   Manage Admins
+                </button>
+                <button
+                  className={`nav-btn ${activeTab === "settings" ? "active" : ""}`}
+                  onClick={() => setActiveTab("settings")}
+                >
+                  Settings
                 </button>
                 <button
                   className="nav-btn logout-btn"

@@ -55,6 +55,8 @@ export default function SpeakerManager() {
               <tr>
                 <th>Name</th>
                 <th>Lecture Title</th>
+                <th>Type</th>
+                <th>Priority</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -63,6 +65,8 @@ export default function SpeakerManager() {
                 <tr key={speaker._id}>
                   <td>{speaker.name}</td>
                   <td>{speaker.lecture_title}</td>
+                  <td>{speaker.type || "upcoming"}</td>
+                  <td>{speaker.priority_number || 0}</td>
                   <td>
                     <button
                       className="action-btn edit-btn"

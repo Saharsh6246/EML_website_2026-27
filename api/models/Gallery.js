@@ -12,6 +12,10 @@ const GallerySchema = new mongoose.Schema({
   cloudinaryId: {
     type: String,
     required: true
+  },
+  year: {
+    type: Number,
+    required: true
   }
 }, { timestamps: true });
 

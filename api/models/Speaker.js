@@ -20,6 +20,15 @@ const SpeakerSchema = new mongoose.Schema(
     yt_link: {
       type: String,
     },
+    type: {
+      type: String,
+      enum: ['upcoming', 'past'],
+      default: 'upcoming'
+    },
+    priority_number: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true,

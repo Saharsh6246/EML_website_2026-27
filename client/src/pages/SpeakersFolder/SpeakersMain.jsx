@@ -14,18 +14,40 @@ export default function SpeakersMain() {
     });
   }, []);
 
+  const upcomingSpeakers = speakerData.filter(s => s.type === "upcoming");
+  const pastSpeakers = speakerData.filter(s => s.type !== "upcoming").sort((a,b) => (b.priority_number || 0) - (a.priority_number || 0));
+
   return (
     <section className="speakers">
-      <h1 className="text-center page-title">Our Past Speakers</h1>
-      <div className="big-wrapper">
-        <div className="container">
-          <div className="row">
-            {speakerData.map((e) => (
-              <SpeakerCard data={e} key={e._id} />
-            ))}
+      {upcomingSpeakers.length > 0 && (
+        <>
+          <h1 className="text-center page-title">Upcoming Speakers</h1>
+          <div className="big-wrapper">
+            <div className="container">
+              <div className="row">
+                {upcomingSpeakers.map((e) => (
+                  <SpeakerCard data={e} key={e._id} />
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
+
+      {pastSpeakers.length > 0 && (
+        <>
+          <h1 className="text-center page-title" style={{marginTop: upcomingSpeakers.length > 0 ? "50px" : "0"}}>Our Past Speakers</h1>
+          <div className="big-wrapper">
+            <div className="container">
+              <div className="row">
+                {pastSpeakers.map((e) => (
+                  <SpeakerCard data={e} key={e._id} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
       <Footer />
     </section>
   );

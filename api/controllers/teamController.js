@@ -5,6 +5,11 @@ import Team from "../models/Team.js";
 // @route: GET /api/team/:year
 // @access : public
 
+export const getAllTeam = asyncHandler(async (req, res) => {
+  const team = await Team.find().sort({ year: -1 });
+  res.status(200).send(team);
+});
+
 export const getTeamByYear = asyncHandler(async (req, res) => {
   const team = await Team.find({ year: req.params.year });
   res.status(200).send(team);

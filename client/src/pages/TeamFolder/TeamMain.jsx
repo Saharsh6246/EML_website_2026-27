@@ -9,22 +9,22 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function TeamMain() {
-  const [teammates, setTeammates] = useState([]);
+  const [allTeammates, setAllTeammates] = useState([]);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     const fetchTeammates = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/api/team/${new Date().getFullYear()}`
-        );
-        setTeammates(response.data);
-        console.log(response.data);
+        const response = await axios.get("http://localhost:8000/api/team");
+        setAllTeammates(response.data);
       } catch (error) {
         console.error("Error fetching team:", error);
       }
     };
     fetchTeammates();
   }, []);
+
+  const teammates = allTeammates.filter(t => t.year === selectedYear);
 
   return (
     <>
@@ -40,6 +40,22 @@ export default function TeamMain() {
             </Carousel.Item>
           ))}
         </Carousel>
+
+        <div className="filter-container" style={{ textAlign: "center", margin: "30px 0" }}>
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+            style={{ padding: "8px", borderRadius: "5px", border: "1px solid #ccc" }}
+          >
+            {[...new Set(allTeammates.map(t => t.year)), new Date().getFullYear()]
+              .sort((a,b)=>b-a)
+              .filter((v,i,a)=>a.indexOf(v)===i)
+              .map(year => (
+                <option key={year} value={year}>{year} Team</option>
+            ))}
+          </select>
+        </div>
+
         <div className="container">
           <div className="row">
             {teammates.map((teammate) => (
