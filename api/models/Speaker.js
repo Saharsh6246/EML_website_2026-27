@@ -28,6 +28,9 @@ const SpeakerSchema = new mongoose.Schema(
     priority_number: {
       type: Number,
       default: 0
+    },
+    cloudinaryId: {
+      type: String
     }
   },
   {

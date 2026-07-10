@@ -1,9 +1,21 @@
 import asyncHandler from "express-async-handler";
 import Team from "../models/Team.js";
+import cloudinary from "../config/cloudinary.js";
+import { Readable } from "stream";
 
-// @desc : Get the speaker Data
-// @route: GET /api/team/:year
-// @access : public
+const streamUpload = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { resource_type: "auto" },
+      (error, result) => {
+        if (error) reject(error);
+        resolve(result);
+      }
+    );
+    const readableStream = Readable.from(buffer);
+    readableStream.pipe(stream);
+  });
+};
 
 export const getAllTeam = asyncHandler(async (req, res) => {
   const team = await Team.find().sort({ year: -1 });
@@ -18,11 +30,28 @@ export const getTeamByYear = asyncHandler(async (req, res) => {
 export const addTeammate = asyncHandler(async (req, res) => {
   if (!req.body) {
     res.status(400);
+    throw new Error("Body is null");
   }
 
-  const teammate = await Team.create(req.body);
+  let photoUrl = req.body.photo || "";
+  let cloudinaryId = "";
+
+  if (req.file) {
+    const result = await streamUpload(req.file.buffer);
+    photoUrl = result.secure_url;
+    cloudinaryId = result.public_id;
+  }
+
+  const payload = {
+    ...req.body,
+    photo: photoUrl,
+    cloudinaryId,
+  };
+
+  const teammate = await Team.create(payload);
   res.status(200).send(teammate);
 });
+
 export const updateTeammate = asyncHandler(async (req, res) => {
   const teammate = await Team.findById(req.params.id);
 
@@ -31,9 +60,27 @@ export const updateTeammate = asyncHandler(async (req, res) => {
     throw new Error("Teammate not found");
   }
 
+  let photoUrl = req.body.photo || teammate.photo;
+  let cloudinaryId = teammate.cloudinaryId;
+
+  if (req.file) {
+    if (teammate.cloudinaryId && !teammate.cloudinaryId.startsWith("local-")) {
+      try { await cloudinary.uploader.destroy(teammate.cloudinaryId); } catch(e){}
+    }
+    const result = await streamUpload(req.file.buffer);
+    photoUrl = result.secure_url;
+    cloudinaryId = result.public_id;
+  }
+
+  const payload = {
+    ...req.body,
+    photo: photoUrl,
+    cloudinaryId,
+  };
+
   const updatedTeammate = await Team.findByIdAndUpdate(
     req.params.id,
-    req.body,
+    payload,
     { new: true }
   );
 
@@ -48,15 +95,10 @@ export const deleteTeammate = asyncHandler(async (req, res) => {
     throw new Error("Teammate not found");
   }
 
+  if (teammate.cloudinaryId && !teammate.cloudinaryId.startsWith("local-")) {
+    try { await cloudinary.uploader.destroy(teammate.cloudinaryId); } catch(e){}
+  }
+
   await Team.findByIdAndDelete(req.params.id);
   res.status(200).json({ message: "Teammate removed successfully" });
 });
-
-// {
-//     "name": "Arjav",
-//     "position": "Students' Head",
-//     "year": 2023,
-//     "photo": "https://media.licdn.com/dms/image/D5603AQGv2NnrrIxSUQ/profile-displayphoto-shrink_800_800/0/1707976353343?e=2147483647&v=beta&t=aV3Hv5NPwP7IminPx2T65j5yIW3M7gQcvMUbK8CFXvs",
-//     "vertical": ""
-
-//   }

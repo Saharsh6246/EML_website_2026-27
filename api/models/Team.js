@@ -21,6 +21,9 @@ const TeamSchema = new mongoose.Schema(
     vertical: {
       type: String,
     },
+    cloudinaryId: {
+      type: String
+    }
   },
   {
     timestamps: true,

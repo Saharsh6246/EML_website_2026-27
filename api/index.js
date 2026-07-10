@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use("/api/team", teamRoutes);
 app.use("/api/speakers", speakerRoutes);

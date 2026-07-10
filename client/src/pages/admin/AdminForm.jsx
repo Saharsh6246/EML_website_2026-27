@@ -5,7 +5,7 @@ export default function AdminForm({ speaker, onSubmitSuccess }) {
   const [speakerName, setSpeakerName] = useState(speaker?.name || "");
   const [speakerDesc, setSpeakerDesc] = useState(speaker?.description || "");
   const [lecTitle, setLecTitle] = useState(speaker?.lecture_title || "");
-  const [speakerPhoto, setSpeakerPhoto] = useState(speaker?.image || "");
+  const [speakerPhoto, setSpeakerPhoto] = useState(null);
   const [ytLink, setYtLink] = useState(speaker?.yt_link || "");
   const [type, setType] = useState(speaker?.type || "upcoming");
   const [priorityNumber, setPriorityNumber] = useState(speaker?.priority_number || 0);
@@ -13,28 +13,36 @@ export default function AdminForm({ speaker, onSubmitSuccess }) {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const payload = {
-        name: speakerName,
-        lecture_title: lecTitle,
-        description: speakerDesc,
-        image: speakerPhoto,
-        yt_link: ytLink,
-        type,
-        priority_number: parseInt(priorityNumber)
+      const formData = new FormData();
+      formData.append("name", speakerName);
+      formData.append("lecture_title", lecTitle);
+      formData.append("description", speakerDesc);
+      formData.append("yt_link", ytLink);
+      formData.append("type", type);
+      formData.append("priority_number", parseInt(priorityNumber));
+
+      if (speakerPhoto) {
+        formData.append("image", speakerPhoto);
+      }
+
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       };
 
       if (speaker) {
-        await axios.put(`http://localhost:8000/api/speakers/${speaker._id}`, payload);
+        await axios.put(`http://localhost:8000/api/speakers/${speaker._id}`, formData, config);
         alert(`${speakerName} updated successfully`);
       } else {
-        await axios.post("http://localhost:8000/api/speakers", payload);
+        await axios.post("http://localhost:8000/api/speakers", formData, config);
         alert(`${speakerName} added to speaker database`);
       }
       
       setSpeakerName("");
       setSpeakerDesc("");
       setLecTitle("");
-      setSpeakerPhoto("");
+      setSpeakerPhoto(null);
       setYtLink("");
       setType("upcoming");
       setPriorityNumber(0);
@@ -98,17 +106,22 @@ export default function AdminForm({ speaker, onSubmitSuccess }) {
 
         <div className="mb-3">
           <label htmlFor="speakerpic" className="form-label">
-            Speaker Photo Link
+            Speaker Photo
           </label>
           <input
-            type="text"
-            value={speakerPhoto}
+            type="file"
+            accept="image/*"
             className="form-control"
             id="speakerpic"
             onChange={(e) => {
-              setSpeakerPhoto(e.target.value);
+              setSpeakerPhoto(e.target.files[0]);
             }}
           />
+          {speaker?.image && (
+            <div className="mt-2">
+              <small>Current image is saved. Upload a new one to replace it.</small>
+            </div>
+          )}
         </div>
 
         <div className="mb-3">

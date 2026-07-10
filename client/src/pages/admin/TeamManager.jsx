@@ -6,7 +6,7 @@ export default function TeamManager() {
     name: "",
     position: "",
     year: new Date().getFullYear(),
-    photo: "",
+    photo: null,
     vertical: "",
   });
   const [message, setMessage] = useState("");
@@ -33,7 +33,18 @@ export default function TeamManager() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/api/team", formData);
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("position", formData.position);
+      payload.append("year", formData.year);
+      payload.append("vertical", formData.vertical);
+      if (formData.photo) {
+        payload.append("photo", formData.photo);
+      }
+
+      await axios.post("http://localhost:8000/api/team", payload, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
       setMessage("Team member added successfully!");
       fetchTeammates();
       resetForm();
@@ -48,22 +59,33 @@ export default function TeamManager() {
       name: "",
       position: "",
       year: new Date().getFullYear(),
-      photo: "",
+      photo: null,
       vertical: "",
     });
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, files } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "year" ? parseInt(value) : value,
+      [name]: type === "file" ? files[0] : (name === "year" ? parseInt(value) : value),
     }));
   };
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8000/api/team/${editingId}`, formData);
+      const payload = new FormData();
+      payload.append("name", formData.name);
+      payload.append("position", formData.position);
+      payload.append("year", formData.year);
+      payload.append("vertical", formData.vertical);
+      if (formData.photo && typeof formData.photo !== "string") {
+        payload.append("photo", formData.photo);
+      }
+
+      await axios.put(`http://localhost:8000/api/team/${editingId}`, payload, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
       setMessage("Team member updated successfully!");
       setEditingId(null);
       fetchTeammates();
@@ -148,14 +170,17 @@ export default function TeamManager() {
           </div>
 
           <div className="form-group">
-            <label>Photo URL</label>
+            <label>Photo</label>
             <input
-              type="url"
+              type="file"
+              accept="image/*"
               name="photo"
-              value={formData.photo}
               onChange={handleInputChange}
-              required
+              required={!editingId}
             />
+            {editingId && typeof formData.photo === "string" && (
+              <small>Current photo is saved. Upload a new one to replace it.</small>
+            )}
           </div>
 
           <div className="form-group">
